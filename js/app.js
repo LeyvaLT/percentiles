@@ -1,38 +1,26 @@
 function dibujar() {
-    var ctx = document.getElementById("pLongitud");
-    Chart.defaults.line.spanGaps = true;
-    //var ctx = document.getElementById("myChart").getContext("2d");
-    var myLineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["0", "6", "12", "18", "24"],
-            datasets: [{
-                label: 'Altura en niños',
-                data: [{
-                    x: 10,
-                    y: 20
-                }, {
-                    x: 15,
-                    y: 30
-                }, {
-                    x: 20,
-                    y: 40
-                }, {
-                    x: 25,
-                    y: 50
-                }, {
-                    x: 30,
-                    y: 60
-                }, {
-                    x: 35,
-                    y: 70
-                }],
-                borderWidth: 2
-            }],
-            options: {
-                showLines: false, // disable for all datasets
-            }
-        }
+    new Morris.Line({
+        // ID of the element in which to draw the chart.
+        element: 'longitud',
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        data: [
+            { month: "0", value: 20 },
+            { month: "6", value: 10 },
+            { month: "12", value: 5 },
+            { month: "18", value: 5 },
+            { month: "24", value: 20 }
+        ],
+        // The name of the data record attribute that contains x-values.
+        xkey: ['month'],
+        // A list of names of data record attributes that contain y-values.
+        ykeys: ['value'],
+        // Labels for the ykeys -- will be displayed when you hover over the
+        // chart.
+        labels: ['puto'],
+        xLabels: ['value']
 
     });
 }
+
+
