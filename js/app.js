@@ -1,26 +1,112 @@
 function dibujar() {
-    new Morris.Line({
-        // ID of the element in which to draw the chart.
-        element: 'longitud',
-        // Chart data records -- each entry in this array corresponds to a point on
-        // the chart.
-        data: [
-            { month: "0", value: 20 },
-            { month: "6", value: 10 },
-            { month: "12", value: 5 },
-            { month: "18", value: 5 },
-            { month: "24", value: 20 }
-        ],
-        // The name of the data record attribute that contains x-values.
-        xkey: ['month'],
-        // A list of names of data record attributes that contain y-values.
-        ykeys: ['value'],
-        // Labels for the ykeys -- will be displayed when you hover over the
-        // chart.
-        labels: ['puto'],
-        xLabels: ['value']
+
+    Highcharts.chart('container', {
+
+        title: {
+            text: 'Solar Employment Growth by Sector, 2010-2016'
+        },
+
+        subtitle: {
+            text: 'Source: thesolarfoundation.com'
+        },
+
+        yAxis: {
+            title: {
+                text: 'Number of Employees'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 2010
+            }
+        },
+
+        series: [{
+            name: 'Installation',
+            data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+        }, {
+            name: 'Manufacturing',
+            data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+        }, {
+            name: 'Sales & Distribution',
+            data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
+        }, {
+            name: 'Project Development',
+            data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+        }, {
+            name: 'Other',
+            data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
+        }],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
 
     });
+
 }
 
+function desplegarGrafica() {
+
+    graficaLongitud();
+    graficaPeso();
+    graficaPCraneal();
+
+}
+
+function graficaLongitud() {
+
+}
+
+function graficaPCraneal() {
+
+}
+
+function graficaPeso() {
+ datosLongitud();
+}
+
+function datosLongitud() {
+
+    $.getJSON( "json/VaronesPeso.json", function( data ) {
+        var items = [];
+        $.each( data, function( key, val ) {
+            items.push( "<li id='" + key + "'>" + val + "</li>" );
+        });
+
+        $( "<ul/>", {
+            "class": "my-new-list",
+            html: items.join( "" )
+        }).appendTo( "body" );
+    });
+
+}
+
+function datosPCraneal() {
+
+}
+
+function datosPeso() {
+
+}
 
