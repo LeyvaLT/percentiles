@@ -1,19 +1,29 @@
 function dibujar() {
 
     Highcharts.chart('container', {
-
+        chart: {
+            type: 'spline'
+        },
         title: {
-            text: 'Solar Employment Growth by Sector, 2010-2016'
+            text: 'altura (niños)'
         },
-
         subtitle: {
-            text: 'Source: thesolarfoundation.com'
+            text: 'Información: www.who.int/childgrowth/standards/es/'
         },
-
+        xAxis: {
+            categories: ['0', '6', '12', '18', '24'],
+            title: {
+                text: 'Meses'
+            }
+        },
         yAxis: {
             title: {
-                text: 'Number of Employees'
+                text: 'altura (cm.)'
             }
+        },
+        tooltip: {
+            crosshairs: true,
+            shared: true
         },
         legend: {
             layout: 'vertical',
@@ -22,31 +32,51 @@ function dibujar() {
         },
 
         plotOptions: {
-            series: {
-                label: {
-                    connectorAllowed: false
-                },
-                pointStart: 2010
+            spline: {
+                marker: {
+                    radius: 4,
+                    lineColor: '#666666',
+                    lineWidth: 1
+                }
             }
         },
 
-        series: [{
-            name: 'Installation',
-            data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-        }, {
-            name: 'Manufacturing',
-            data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-        }, {
-            name: 'Sales & Distribution',
-            data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-        }, {
-            name: 'Project Development',
-            data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-        }, {
-            name: 'Other',
-            data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-        }],
-
+        series: [
+            {
+                name: 'Percentil 97',
+                data: [54, 56, 58, 60, 62]
+            },
+            {
+                name: 'Percentil 50',
+                data: [52, 54, 56, 58, 60]
+            },
+            {
+                name: 'Percentil 3',
+                data: [50, 52, 54, 56, 58]
+            },
+            {
+                name: 'Mis medidas',
+                marker: {
+                    symbol: 'null'
+                },
+                data: [{
+                    x: (0.2083) * 3,
+                    y: 59,
+                    marker: {
+                        symbol: 'url(css/img/1.png)'
+                    }
+                }]
+            }],
+        navigation: {
+            buttonOptions: {
+                height: 40,
+                width: 48,
+                symbolSize: 24,
+                symbolX: 23,
+                symbolY: 21,
+                symbolStrokeWidth: 2
+            }
+        },
         responsive: {
             rules: [{
                 condition: {
@@ -62,51 +92,72 @@ function dibujar() {
             }]
         }
 
-    });
 
+    });
 }
 
 function desplegarGrafica() {
 
-    graficaLongitud();
-    graficaPeso();
-    graficaPCraneal();
+    console.log(getDatosXMes("VaronesPeso.json"));
+
 
 }
 
-function graficaLongitud() {
+
+function graficar(P3, P50, P97, genero, myData, edad, tipo) {
 
 }
 
-function graficaPCraneal() {
 
+function dataP3(data) {
+    console.log(data);
+    P3 = [];
+
+    $.each(data, function () {
+        console.log(value);
+        P3.push(data["P3"]);
+    });
+    console.log(P3);
+    return P3;
 }
 
-function graficaPeso() {
- datosLongitud();
+function dataP50(data) {
+    P50 = [];
+
+    $.each(data, function () {
+        console.log(value);
+        P50.push(data["P50"]);
+    });
+    return P50;
 }
 
-function datosLongitud() {
+function dataP97(data) {
+    P97 = [];
 
-    $.getJSON( "json/VaronesPeso.json", function( data ) {
-        var items = [];
-        $.each( data, function( key, val ) {
-            items.push( "<li id='" + key + "'>" + val + "</li>" );
-        });
+    $.each(data, function () {
+        P97.push(data["P97"]);
+    });
+    return P97;
+}
 
-        $( "<ul/>", {
-            "class": "my-new-list",
-            html: items.join( "" )
-        }).appendTo( "body" );
+
+
+var obj = "";
+function getDatosXMes(tipo) {
+
+    $.getJSON("json/" + tipo, function (data) {
+        obj = data["meses"];
     });
 
+
+    return obj;
+
+
 }
 
-function datosPCraneal() {
-
-}
-
-function datosPeso() {
-
+function getdatosXAnio(tipo) {
+    $.getJSON("json/" + tipo, function (data) {
+        return data["años"];
+    });
 }
 
