@@ -1,5 +1,17 @@
-function dibujar() {
+function desplegarGrafica() {
+    var genero;
+    var tipo;
+    var edad;
+    var rango;
+    P3 = dataP3(getDatosXMes("VaronesPeso.json"));
+    P50 = dataP50(getDatosXMes("VaronesPeso.json"));
+    P97 = dataP97(getDatosXMes("VaronesPeso.json"));
 
+    graficar(P3, P50, P97);
+
+}
+
+function graficar(P3, P50, P97) {
     Highcharts.chart('container', {
         chart: {
             type: 'spline'
@@ -44,15 +56,15 @@ function dibujar() {
         series: [
             {
                 name: 'Percentil 97',
-                data: [54, 56, 58, 60, 62]
+                data: P97
             },
             {
                 name: 'Percentil 50',
-                data: [52, 54, 56, 58, 60]
+                data: P50
             },
             {
                 name: 'Percentil 3',
-                data: [50, 52, 54, 56, 58]
+                data: P3
             },
             {
                 name: 'Mis medidas',
@@ -61,7 +73,7 @@ function dibujar() {
                 },
                 data: [{
                     x: (0.2083) * 3,
-                    y: 59,
+                    y: 10,
                     marker: {
                         symbol: 'url(css/img/1.png)'
                     }
@@ -96,68 +108,72 @@ function dibujar() {
     });
 }
 
-function desplegarGrafica() {
-
-    console.log(getDatosXMes("VaronesPeso.json"));
-
-
-}
-
-
-function graficar(P3, P50, P97, genero, myData, edad, tipo) {
-
-}
-
-
 function dataP3(data) {
-    console.log(data);
+    //console.log(data);
     P3 = [];
-
-    $.each(data, function () {
-        console.log(value);
-        P3.push(data["P3"]);
+    $.each(data, function (k, m) {
+        P3.push(data[k].P3);
     });
-    console.log(P3);
     return P3;
 }
 
 function dataP50(data) {
+    //console.log(data);
     P50 = [];
-
-    $.each(data, function () {
-        console.log(value);
-        P50.push(data["P50"]);
+    $.each(data, function (k, m) {
+        //console.log(data[k].P50);
+        P50.push(data[k].P50);
     });
+    //console.log(P50);
     return P50;
 }
 
 function dataP97(data) {
+    //console.log(data);
     P97 = [];
-
-    $.each(data, function () {
-        P97.push(data["P97"]);
+    $.each(data, function (k, m) {
+        // console.log(data[k].P97);
+        P97.push(data[k].P97);
     });
+    //console.log(P97);
     return P97;
 }
 
-
-
-var obj = "";
 function getDatosXMes(tipo) {
+    var return_first = function () {
+        var tmp = null;
+        $.ajax({
+            'async': false,
+            'type': "GET",
+            'global': false,
+            'dataType': 'json',
+            'url': "json/" + tipo,
+            'success': function (data) {
+                tmp = data;
+            }
+        });
+        return tmp.meses;
+    }();
 
-    $.getJSON("json/" + tipo, function (data) {
-        obj = data["meses"];
-    });
-
-
-    return obj;
-
-
+    return return_first;
 }
 
 function getdatosXAnio(tipo) {
-    $.getJSON("json/" + tipo, function (data) {
-        return data["años"];
-    });
+    var return_first = function () {
+        var tmp = null;
+        $.ajax({
+            'async': false,
+            'type': "GET",
+            'global': false,
+            'dataType': 'json',
+            'url': "json/" + tipo,
+            'success': function (data) {
+                tmp = data;
+            }
+        });
+        return tmp.años;
+    }();
+
+    return return_first;
 }
 
