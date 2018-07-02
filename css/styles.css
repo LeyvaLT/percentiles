@@ -2,8 +2,44 @@
     min-width: 310px;
     max-width: 800px;
     height: 400px;
-    margin: 0 auto
+    margin: 0 auto;
+}
+
+#longitudG{
+    min-width: 310px;
+    max-width: 800px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+#pesoG{
+    min-width: 310px;
+    max-width: 800px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+#pCranealG{
+    min-width: 310px;
+    max-width: 800px;
+    height: 400px;
+    margin: 0 auto;
 }
 .controles{
-    width: 100px;
+    min-width: 310px;
+    max-width: 800px;
+    height: 230px;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 700px;
+
 }
+
+.controles_control{
+    padding: 0.3rem;
+
+
+}
+ .main{
+     margin: 1rem;
+ }
